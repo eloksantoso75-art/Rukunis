@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pillar Quest: Menjelajah Rukun Islam!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Nunito:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #3498db;
+            --light-blue: #aed6f1;
+            --primary-green: #2ecc71;
+            --light-green: #abebc6;
+            --orange: #e67e22;
+            --purple: #9b59b6;
+            --yellow: #f1c40f;
+            --light-bg: #f9f9f9;
+            --white: #ffffff;
+            --dark-text: #2c3e50;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Nunito', sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            min-height: 100vh;
+            background-image: radial-gradient(circle at 10% 20%, rgba(162, 217, 255, 0.2) 0%, rgba(162, 217, 255, 0) 20%),
+                              radial-gradient(circle at 90% 80%, rgba(130, 224, 170, 0.2) 0%, rgba(130, 224, 170, 0) 20%);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .page {
+            display: none;
+            background-color: var(--white);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            min-height: 80vh;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        h1, h2, h3 {
+            font-family: 'Poppins', sans-serif;
+            color: var(--dark-text);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+        }
+        
+        h2 {
+            font-size: 1.8rem;
+            color: var(--primary-green);
+        }
+        
+        h3 {
+            font-size: 1.4rem;
+            color: var(--orange);
+        }
+        
+        /* Header & Navigation */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .logo {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+        }
+        
+        /* Audio Controls - BARU */
+        .audio-controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .audio-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        
+        .audio-btn:hover {
+            transform: scale(1.2);
+        }
+        
+        .volume-slider {
+            width: 80px;
+        }
+        
+        /* Menu Utama */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .menu-btn {
+            background-color: var(--white);
+            border: none;
+            border-radius: 15px;
+            padding: 25px 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 180px;
+        }
+        
+        .menu-btn:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .menu-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        
+        .menu-btn h3 {
+            margin-bottom: 10px;
+        }
+        
+        .menu-btn p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        /* Materi Rukun Islam */
+        .pillar-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .pillar-card {
+            background-color: var(--white);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .pillar-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .pillar-number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary-blue);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        /* Game Matching */
+        .matching-game {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .matching-item {
+            width: 48%;
+            padding: 15px;
+            border-radius: 10px;
+            background-color: var(--light-bg);
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .matching-item:hover {
+            transform: scale(1.03);
+        }
+        
+        /* Scramble Game */
+        .scramble-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .scramble-word {
+            font-size: 2.5rem;
+            letter-spacing: 10px;
+            margin: 30px 0;
+            padding: 20px;
+            background-color: var(--light-bg);
+            border-radius: 10px;
+            font-weight: bold;
+        }
+        
+        .answer-input {
+            width: 100%;
+            max-width: 400px;
+            padding: 15px;
+            font-size: 1.2rem;
+            border: 2px solid var(--primary-blue);
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        /* Kuis Dua Pemain - TATA LETAK DIPERBAIKI */
+        .game-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            min-height: 400px;
+        }
+        
+        .player-area {
+            width: 45%;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+        }
+        
+        .player1-area {
+            background-color: var(--light-blue);
+        }
+        
+        .player2-area {
+            background-color: var(--light-green);
+        }
+        
+        .player-score {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        
+        .question-area {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .option-btn {
+            padding: 12px;
+            border: 2px solid var(--primary-blue);
+            border-radius: 10px;
+            background-color: var(--white);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .option-btn:hover {
+            background-color: var(--primary-blue);
+            color: white;
+        }
+        
+        /* TUG OF WAR DIBAWAH JAWABAN */
+        .tug-of-war-container {
+            width: 100%;
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f5f5f5;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .tug-of-war {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .rope-container {
+            width: 100%;
+            position: relative;
+            margin: 20px 0;
+        }
+        
+        .rope {
+            height: 10px;
+            background-color: #8B4513;
+            width: 100%;
+            position: relative;
+            border-radius: 5px;
+        }
+        
+        .flag {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2rem;
+            transition: left 0.5s ease;
+        }
+        
+        .markers {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        .marker {
+            width: 2px;
+            height: 15px;
+            background-color: #666;
+        }
+        
+        .player-indicators {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        
+        /* Notification Area - BARU */
+        .notification-container {
+            width: 100%;
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .notification {
+            padding: 15px 25px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            text-align: center;
+            max-width: 80%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            display: none;
+            animation: slideIn 0.5s ease;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .notification.success {
+            background-color: var(--primary-green);
+            color: white;
+        }
+        
+        .notification.error {
+            background-color: #e74c3c;
+            color: white;
+        }
+        
+        .notification.show {
+            display: block;
+        }
+        
+        /* Latihan Soal */
+        .quiz-container {
+            max-width: 800px;
+            margin: 30px auto 0;
+        }
+        
+        .question-card {
+            background-color: var(--white);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .quiz-option {
+            padding: 15px;
+            border: 2px solid var(--light-blue);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .quiz-option:hover {
+            background-color: var(--light-blue);
+        }
+        
+        /* Tombol Navigasi */
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-blue);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background-color: var(--primary-green);
+            color: white;
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary-blue);
+            color: var(--primary-blue);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            font-size: 0.9rem;
+            color: #666;
+            border-top: 1px solid #eee;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .matching-game {
+                flex-direction: column;
+            }
+            
+            .matching-item {
+                width: 100%;
+            }
+            
+            .game-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .player-area {
+                width: 100%;
+            }
+            
+            .audio-controls {
+                top: 10px;
+                right: 10px;
+                padding: 8px;
+            }
+            
+            .volume-slider {
+                width: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Audio Elements - BARU -->
+    <audio id="bg-music" loop>
+        <source src="assets/audio/background-music.mp3" type="audio/mpeg">
+        Browser Anda tidak mendukung elemen audio.
+    </audio>
+    
+    <audio id="button-sound">
+        <source src="assets/audio/button-click.mp3" type="audio/mpeg">
+        Browser Anda tidak mendukung elemen audio.
+    </audio>
+    
+    <audio id="success-sound">
+        <source src="assets/audio/success.mp3" type="audio/mpeg">
+        Browser Anda tidak mendukung elemen audio.
+    </audio>
+    
+    <audio id="error-sound">
+        <source src="assets/audio/error.mp3" type="audio/mpeg">
+        Browser Anda tidak mendukung elemen audio.
+    </audio>
+    
+    <!-- Audio Controls - BARU -->
+    <div class="audio-controls">
+        <button class="audio-btn" id="music-toggle" onclick="toggleMusic()">🔊</button>
+        <input type="range" class="volume-slider" id="volume-slider" min="0" max="100" value="30" onchange="changeVolume(this.value)">
+    </div>
+    
+    <div class="container">
+        <!-- Halaman Menu Utama -->
+        <div id="home-page" class="page active">
+            <div class="header">
+                <div class="logo">🕌</div>
+                <h1>Pillar Quest: Menjelajah Rukun Islam!</h1>
+                <p class="subtitle">Belajar Rukun Islam dengan Cara Menyenangkan</p>
+            </div>
+            
+            <div class="menu-grid">
+                <div class="menu-btn" onclick="showPage('materi-page')">
+                    <div class="menu-icon">📘</div>
+                    <h3>Materi Rukun Islam</h3>
+                    <p>Pelajari 5 Rukun Islam dengan penjelasan lengkap</p>
+                </div>
+                
+                <div class="menu-btn" onclick="showPage('matching-page')">
+                    <div class="menu-icon">🧩</div>
+                    <h3>Game Matching</h3>
+                    <p>Cocokkan nama Rukun Islam dengan penjelasannya</p>
+                </div>
+                
+                <div class="menu-btn" onclick="showPage('scramble-page')">
+                    <div class="menu-icon">🔤</div>
+                    <h3>Scramble Game</h3>
+                    <p>Susun huruf acak menjadi nama Rukun Islam</p>
+                </div>
+                
+                <div class="menu-btn" onclick="showPage('competition-page')">
+                    <div class="menu-icon">🏆</div>
+                    <h3>Kuis Kompetisi</h3>
+                    <p>Bermain bersama teman dengan sistem tarik tambang</p>
+                </div>
+                
+                <div class="menu-btn" onclick="showPage('quiz-page')">
+                    <div class="menu-icon">📝</div>
+                    <h3>Latihan Soal</h3>
+                    <p>Uji pengetahuanmu dengan soal-soal menarik</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Halaman Materi Rukun Islam -->
+        <div id="materi-page" class="page">
+            <div class="header">
+                <h2>Materi Rukun Islam</h2>
+                <p>Pelajari 5 Rukun Islam dengan penjelasan singkat</p>
+            </div>
+            
+            <div class="pillar-cards">
+                <div class="pillar-card">
+                    <div class="pillar-number">1</div>
+                    <h3>Syhadat</h3>
+                    <p>Mengucapkan dua kalimat syahadat: "Asyhadu an laa ilaaha illallaah, wa asyhadu anna muhammadan rasuulullaah" yang artinya "Aku bersaksi bahwa tidak ada Tuhan selain Allah, dan aku bersaksi bahwa Muhammad adalah utusan Allah".</p>
+                </div>
+                
+                <div class="pillar-card">
+                    <div class="pillar-number">2</div>
+                    <h3>Shalat</h3>
+                    <p>Menunaikan shalat lima waktu sehari semalam: Subuh, Dzuhur, Ashar, Maghrib, dan Isya. Shalat adalah tiang agama dan merupakan ibadah langsung kepada Allah.</p>
+                </div>
+                
+                <div class="pillar-card">
+                    <div class="pillar-number">3</div>
+                    <h3>Zakat</h3>
+                    <p>Mengeluarkan zakat harta bagi yang mampu. Zakat bertujuan untuk membersihkan harta dan membantu sesama muslim yang membutuhkan.</p>
+                </div>
+                
+                <div class="pillar-card">
+                    <div class="pillar-number">4</div>
+                    <h3>Puasa</h3>
+                    <p>Berpuasa di bulan Ramadhan selama satu bulan penuh. Puasa dimulai dari terbit fajar hingga terbenam matahari dengan menahan diri dari makan, minum, dan hal-hal yang membatalkan puasa.</p>
+                </div>
+                
+                <div class="pillar-card">
+                    <div class="pillar-number">5</div>
+                    <h3>Haji</h3>
+                    <p>Menunaikan ibadah haji ke Baitullah di Mekah bagi yang mampu secara fisik dan finansial. Haji dilaksanakan setidaknya sekali seumur hidup.</p>
+                </div>
+            </div>
+            
+            <div class="nav-buttons">
+                <button class="btn btn-primary" onclick="showPage('home-page')">🔙 Kembali ke Menu</button>
+                <button class="btn btn-secondary" onclick="showPage('matching-page')">🧩 Main Game Matching</button>
+                <button class="btn btn-secondary" onclick="showPage('competition-page')">🏆 Kuis Kompetisi</button>
+            </div>
+        </div>
+        
+        <!-- Halaman Game Matching -->
+        <div id="matching-page" class="page">
+            <div class="header">
+                <h2>Game Matching</h2>
+                <p>Cocokkan Rukun Islam dengan penjelasannya!</p>
+            </div>
+            
+            <div class="matching-game">
+                <div class="matching-item" style="background-color: var(--light-blue);" onclick="matchItem(this, 'penjelasan1')">
+                    <h3>Syhadat</h3>
+                </div>
+                
+                <div class="matching-item" style="background-color: var(--light-green);" id="penjelasan1">
+                    <p>Mengucapkan dua kalimat syahadat</p>
+                </div>
+                
+                <div class="matching-item" style="background-color: var(--light-blue);" onclick="matchItem(this, 'penjelasan2')">
+                    <h3>Shalat</h3>
+                </div>
+                
+                <div class="matching-item" style="background-color: var(--light-green);" id="penjelasan2">
+                    <p>Menunaikan shalat lima waktu</p>
+                </div>
+                
+                <div class="matching-item" style="background-color: var(--light-blue);" onclick="matchItem(this, 'penjelasan3')">
+                    <h3>Zakat</h3>
+                </div>
+                
+                <div class="matching-item" style="background-color: var(--light-green);" id="penjelasan3">
+                    <p>Mengeluarkan zakat bagi yang mampu</p>
+                </div>
+                
+                <div class="matching-item" style="background-color: var(--light-blue);" onclick="matchItem(this, 'penjelasan4')">
+                    <h3>Puasa</h3>
+                </div>
+                
+                <div class="matching-item" style="background-color: var(--light-green);" id="penjelasan4">
+                    <p>Berpuasa di bulan Ramadhan</p>
+                </div>
+                
+                <div class="matching-item" style="background-color: var(--light-blue);" onclick="matchItem(this, 'penjelasan5')">
+                    <h3>Haji</h3>
+                </div>
+                
+                <div class="matching-item" style="background-color: var(--light-green);" id="penjelasan5">
+                    <p>Menunaikan ibadah haji ke Mekah</p>
+                </div>
+            </div>
+            
+            <div class="nav-buttons">
+                <button class="btn btn-primary" onclick="showPage('home-page')">🔙 Menu</button>
+                <button class="btn btn-secondary" onclick="showPage('scramble-page')">🔤 Scramble Game</button>
+                <button class="btn btn-secondary" onclick="showPage('competition-page')">🏆 Kuis Kompetisi</button>
+            </div>
+        </div>
+        
+        <!-- Halaman Scramble Game -->
+        <div id="scramble-page" class="page">
+            <div class="header">
+                <h2>Scramble Game</h2>
+                <p>Susun huruf acak menjadi nama Rukun Islam!</p>
+            </div>
+            
+            <div class="scramble-container">
+                <div class="scramble-word" id="scrambled-word">S L A A T</div>
+                
+                <input type="text" class="answer-input" id="scramble-answer" placeholder="Ketik jawabanmu di sini...">
+                
+                <button class="btn btn-primary" onclick="checkScramble()">Periksa Jawaban</button>
+                
+                <div id="scramble-feedback" style="margin-top: 20px; font-weight: bold;"></div>
+            </div>
+            
+            <div class="nav-buttons">
+                <button class="btn btn-primary" onclick="showPage('home-page')">🔙 Menu</button>
+                <button class="btn btn-secondary" onclick="showPage('matching-page')">🧩 Game Matching</button>
+                <button class="btn btn-secondary" onclick="showPage('competition-page')">🏆 Kompetisi</button>
+                <button class="btn btn-secondary" onclick="showPage('quiz-page')">📝 Latihan Soal</button>
+            </div>
+        </div>
+        
+        <!-- Halaman Kuis Kompetisi Dua Pemain -->
+        <div id="competition-page" class="page">
+            <div class="header">
+                <h2>Kuis Kompetisi Dua Pemain</h2>
+                <p>Adu pengetahuan tentang Rukun Islam dengan temanmu!</p>
+            </div>
+            
+            <!-- Notification Area - BARU -->
+            <div class="notification-container">
+                <div id="notification" class="notification"></div>
+            </div>
+            
+            <div class="game-container">
+                <div class="player-area player1-area">
+                    <h3>Player 1</h3>
+                    <div class="player-score" id="player1-score">0</div>
+                    <div class="question-area">
+                        <p id="player1-question">Rukun Islam ke-3 adalah ...</p>
+                        <div class="options">
+                            <button class="option-btn" onclick="answerQuestion(1, 'A')">A. Syahadat</button>
+                            <button class="option-btn" onclick="answerQuestion(1, 'B')">B. Zakat</button>
+                            <button class="option-btn" onclick="answerQuestion(1, 'C')">C. Haji</button>
+                            <button class="option-btn" onclick="answerQuestion(1, 'D')">D. Puasa</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="player-area player2-area">
+                    <h3>Player 2</h3>
+                    <div class="player-score" id="player2-score">0</div>
+                    <div class="question-area">
+                        <p id="player2-question">Rukun Islam ke-3 adalah ...</p>
+                        <div class="options">
+                            <button class="option-btn" onclick="answerQuestion(2, 'A')">A. Syahadat</button>
+                            <button class="option-btn" onclick="answerQuestion(2, 'B')">B. Zakat</button>
+                            <button class="option-btn" onclick="answerQuestion(2, 'C')">C. Haji</button>
+                            <button class="option-btn" onclick="answerQuestion(2, 'D')">D. Puasa</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- TARIK TAMBANG DIBAWAH JAWABAN -->
+            <div class="tug-of-war-container">
+                <div class="tug-of-war">
+                    <div class="player-indicators">
+                        <span>Player 1</span>
+                        <span>Player 2</span>
+                    </div>
+                    <div class="rope-container">
+                        <div class="rope">
+                            <div class="flag" id="flag">🎏</div>
+                        </div>
+                    </div>
+                    <div class="markers">
+                        <div class="marker"></div>
+                        <div class="marker"></div>
+                        <div class="marker"></div>
+                        <div class="marker"></div>
+                        <div class="marker"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="nav-buttons">
+                <button class="btn btn-primary" onclick="showPage('home-page')">🔙 Menu</button>
+                <button class="btn btn-secondary" onclick="showPage('materi-page')">📘 Materi</button>
+                <button class="btn btn-secondary" onclick="showPage('quiz-page')">📝 Latihan Soal</button>
+                <button class="btn btn-primary" onclick="nextQuestion()">Pertanyaan Selanjutnya</button>
+            </div>
+        </div>
+        
+        <!-- Halaman Latihan Soal -->
+        <div id="quiz-page" class="page">
+            <div class="header">
+                <h2>Latihan Soal & Skor Akhir</h2>
+                <p>Uji pengetahuanmu tentang Rukun Islam!</p>
+            </div>
+            
+            <div class="quiz-container">
+                <div class="question-card">
+                    <h3>Soal 1: Rukun Islam ke-3 adalah ...</h3>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectAnswer(this, 'B')">A. Syahadat</div>
+                        <div class="quiz-option" onclick="selectAnswer(this, 'B')">B. Zakat</div>
+                        <div class="quiz-option" onclick="selectAnswer(this, 'B')">C. Haji</div>
+                        <div class="quiz-option" onclick="selectAnswer(this, 'B')">D. Puasa</div>
+                    </div>
+                </div>
+                
+                <div class="question-card">
+                    <h3>Soal 2: Apa arti syahadat?</h3>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectAnswer(this, 'A')">A. Bersaksi bahwa tidak ada Tuhan selain Allah dan Muhammad utusan Allah</div>
+                        <div class="quiz-option" onclick="selectAnswer(this, 'A')">B. Menunaikan shalat lima waktu</div>
+                        <div class="quiz-option" onclick="selectAnswer(this, 'A')">C. Berpuasa di bulan Ramadhan</div>
+                        <div class="quiz-option" onclick="selectAnswer(this, 'A')">D. Menunaikan ibadah haji</div>
+                    </div>
+                </div>
+                
+                <div class="question-card">
+                    <h3>Soal 3: Siapa yang wajib membayar zakat?</h3>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectAnswer(this, 'C')">A. Semua muslim tanpa terkecuali</div>
+                        <div class="quiz-option" onclick="selectAnswer(this, 'C')">B. Hanya orang kaya</div>
+                        <div class="quiz-option" onclick="selectAnswer(this, 'C')">C. Muslim yang mampu secara finansial</div>
+                        <div class="quiz-option" onclick="selectAnswer(this, 'C')">D. Hanya laki-laki muslim</div>
+                    </div>
+                </div>
+                
+                <div class="question-card">
+                    <h3>Soal 4: Berapa kali shalat wajib dalam sehari?</h3>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectAnswer(this, 'D')">A. 3 kali</div>
+                        <div class="quiz-option" onclick="selectAnswer(this, 'D')">B. 4 kali</div>
+                        <div class="quiz-option" onclick="selectAnswer(this, 'D')">C. 6 kali</div>
+                        <div class="quiz-option" onclick="selectAnswer(this, 'D')">D. 5 kali</div>
+                    </div>
+                </div>
+                
+                <div class="question-card">
+                    <h3>Soal 5: Ibadah haji dilaksanakan di ...</h3>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectAnswer(this, 'A')">A. Mekah</div>
+                        <div class="quiz-option" onclick="selectAnswer(this, 'A')">B. Madinah</div>
+                        <div class="quiz-option" onclick="selectAnswer(this, 'A')">C. Yerusalem</div>
+                        <div class="quiz-option" onclick="selectAnswer(this, 'A')">D. Jakarta</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="nav-buttons">
+                <button class="btn btn-primary" onclick="showPage('home-page')">🔙 Menu</button>
+                <button class="btn btn-secondary" onclick="showPage('materi-page')">📘 Materi</button>
+                <button class="btn btn-secondary" onclick="showPage('competition-page')">🏆 Kompetisi</button>
+                <button class="btn btn-primary" onclick="calculateScore()">Hitung Skor</button>
+            </div>
+            
+            <div id="score-result" style="text-align: center; margin-top: 20px; font-weight: bold; font-size: 1.2rem;"></div>
+        </div>
+        
+        <footer>
+            <p>Pakelokgurusdnmegaluh</p>
+        </footer>
+    </div>
+
+    <script>
+        // Audio Controls - BARU
+        const bgMusic = document.getElementById('bg-music');
+        const buttonSound = document.getElementById('button-sound');
+        const successSound = document.getElementById('success-sound');
+        const errorSound = document.getElementById('error-sound');
+        const musicToggle = document.getElementById('music-toggle');
+        const volumeSlider = document.getElementById('volume-slider');
+        
+        // Set initial volume
+        bgMusic.volume = 0.3;
+        
+        // Play music when page loads
+        window.addEventListener('load', function() {
+            // Autoplay policy may prevent this from working without user interaction
+            // So we'll start music on first user interaction
+            document.addEventListener('click', startMusicOnce, { once: true });
+        });
+        
+        function startMusicOnce() {
+            bgMusic.play().catch(e => {
+                console.log("Autoplay prevented:", e);
+            });
+        }
+        
+        function toggleMusic() {
+            if (bgMusic.paused) {
+                bgMusic.play();
+                musicToggle.textContent = '🔊';
+            } else {
+                bgMusic.pause();
+                musicToggle.textContent = '🔇';
+            }
+        }
+        
+        function changeVolume(value) {
+            bgMusic.volume = value / 100;
+        }
+        
+        function playButtonSound() {
+            buttonSound.currentTime = 0;
+            buttonSound.play().catch(e => {
+                console.log("Button sound error:", e);
+            });
+        }
+        
+        function playSuccessSound() {
+            successSound.currentTime = 0;
+            successSound.play().catch(e => {
+                console.log("Success sound error:", e);
+            });
+        }
+        
+        function playErrorSound() {
+            errorSound.currentTime = 0;
+            errorSound.play().catch(e => {
+                console.log("Error sound error:", e);
+            });
+        }
+        
+        // Fungsi navigasi antar halaman
+        function showPage(pageId) {
+            // Mainkan suara tombol
+            playButtonSound();
+            
+            // Sembunyikan semua halaman
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Tampilkan halaman yang dipilih
+            document.getElementById(pageId).classList.add('active');
+            
+            // Reset game jika perlu
+            if (pageId === 'scramble-page') {
+                resetScrambleGame();
+            } else if (pageId === 'competition-page') {
+                resetCompetition();
+            } else if (pageId === 'quiz-page') {
+                resetQuiz();
+            }
+        }
+        
+        // Game Matching
+        function matchItem(item, targetId) {
+            // Mainkan suara tombol
+            playButtonSound();
+            
+            const target = document.getElementById(targetId);
+            
+            // Beri efek visual saat dicocokkan
+            item.style.backgroundColor = '#2ecc71';
+            item.style.color = 'white';
+            target.style.backgroundColor = '#2ecc71';
+            target.style.color = 'white';
+            
+            // Nonaktifkan klik setelah dicocokkan
+            item.onclick = null;
+            
+            // Mainkan suara sukses
+            playSuccessSound();
+        }
+        
+        // Scramble Game
+        const scrambleWords = [
+            { scrambled: "S L A A T", answer: "SALAT" },
+            { scrambled: "K A T A Z", answer: "ZAKAT" },
+            { scrambled: "A S A P U", answer: "PUASA" },
+            { scrambled: "J A H I", answer: "HAJI" },
+            { scrambled: "H A D A S A T Y", answer: "SYAHADAT" }
+        ];
+        
+        let currentScrambleIndex = 0;
+        
+        function resetScrambleGame() {
+            currentScrambleIndex = 0;
+            document.getElementById('scramble-answer').value = '';
+            document.getElementById('scramble-feedback').textContent = '';
+            loadScrambleWord();
+        }
+        
+        function loadScrambleWord() {
+            if (currentScrambleIndex < scrambleWords.length) {
+                document.getElementById('scrambled-word').textContent = scrambleWords[currentScrambleIndex].scrambled;
+            } else {
+                document.getElementById('scrambled-word').textContent = "SELESAI!";
+                document.getElementById('scramble-feedback').textContent = "Kamu telah menyelesaikan semua soal!";
+            }
+        }
+        
+        function checkScramble() {
+            // Mainkan suara tombol
+            playButtonSound();
+            
+            const userAnswer = document.getElementById('scramble-answer').value.toUpperCase();
+            const correctAnswer = scrambleWords[currentScrambleIndex].answer;
+            const feedback = document.getElementById('scramble-feedback');
+            
+            if (userAnswer === correctAnswer) {
+                feedback.textContent = "Benar! 🎉";
+                feedback.style.color = "#2ecc71";
+                
+                // Mainkan suara sukses
+                playSuccessSound();
+                
+                // Tunggu sebentar lalu lanjut ke kata berikutnya
+                setTimeout(() => {
+                    currentScrambleIndex++;
+                    document.getElementById('scramble-answer').value = '';
+                    feedback.textContent = '';
+                    loadScrambleWord();
+                }, 1500);
+            } else {
+                feedback.textContent = "Coba lagi! 💪";
+                feedback.style.color = "#e74c3c";
+                
+                // Mainkan suara error
+                playErrorSound();
+            }
+        }
+        
+        // Kuis Kompetisi Dua Pemain
+        let player1Score = 0;
+        let player2Score = 0;
+        let flagPosition = 50; // Posisi bendera dalam persen (50% = tengah)
+        let currentQuestionIndex = 0;
+        
+        // Pertanyaan untuk kompetisi
+        const competitionQuestions = [
+            {
+                question: "Rukun Islam ke-3 adalah ...",
+                options: ["A. Syahadat", "B. Zakat", "C. Haji", "D. Puasa"],
+                correct: "B"
+            },
+            {
+                question: "Shalat adalah tiang agama, artinya ...",
+                options: ["A. Paling penting", "B. Penopang agama", "C. Wajib hukumnya", "D. Dilakukan 5 kali"],
+                correct: "B"
+            },
+            {
+                question: "Zakat bertujuan untuk ...",
+                options: ["A. Membersihkan harta", "B. Membantu fakir miskin", "C. Kedua jawaban benar", "D. Tidak ada yang benar"],
+                correct: "C"
+            },
+            {
+                question: "Puasa di bulan Ramadhan dilakukan dari ...",
+                options: ["A. Pagi hingga sore", "B. Terbit fajar hingga terbenam matahari", "C. Subuh hingga maghrib", "D. Pukul 6 pagi hingga 6 sore"],
+                correct: "B"
+            },
+            {
+                question: "Ibadah haji wajib dilakukan ...",
+                options: ["A. Setiap tahun", "B. Sekali seumur hidup", "C. Setiap 5 tahun", "D. Tidak ada kewajiban"],
+                correct: "B"
+            }
+        ];
+        
+        function resetCompetition() {
+            player1Score = 0;
+            player2Score = 0;
+            flagPosition = 50;
+            currentQuestionIndex = 0;
+            document.getElementById('player1-score').textContent = "0";
+            document.getElementById('player2-score').textContent = "0";
+            updateFlagPosition();
+            loadQuestion();
+            hideNotification();
+        }
+        
+        function loadQuestion() {
+            if (currentQuestionIndex < competitionQuestions.length) {
+                const question = competitionQuestions[currentQuestionIndex];
+                document.getElementById('player1-question').textContent = question.question;
+                document.getElementById('player2-question').textContent = question.question;
+                
+                // Update options untuk player 1
+                const player1Options = document.querySelectorAll('.player1-area .option-btn');
+                player1Options.forEach((btn, index) => {
+                    btn.textContent = question.options[index];
+                    btn.onclick = () => answerQuestion(1, btn.textContent.charAt(0));
+                });
+                
+                // Update options untuk player 2
+                const player2Options = document.querySelectorAll('.player2-area .option-btn');
+                player2Options.forEach((btn, index) => {
+                    btn.textContent = question.options[index];
+                    btn.onclick = () => answerQuestion(2, btn.textContent.charAt(0));
+                });
+            } else {
+                showNotification("Permainan Selesai! Player " + (player1Score > player2Score ? "1" : "2") + " Menang!", "success");
+            }
+        }
+        
+        function nextQuestion() {
+            // Mainkan suara tombol
+            playButtonSound();
+            
+            currentQuestionIndex++;
+            loadQuestion();
+            hideNotification();
+        }
+        
+        function showNotification(message, type) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = 'notification show ' + type;
+        }
+        
+        function hideNotification() {
+            const notification = document.getElementById('notification');
+            notification.className = 'notification';
+        }
+        
+        function answerQuestion(player, answer) {
+            // Mainkan suara tombol
+            playButtonSound();
+            
+            const correctAnswer = competitionQuestions[currentQuestionIndex].correct;
+            
+            if (answer === correctAnswer) {
+                if (player === 1) {
+                    player1Score += 10;
+                    flagPosition += 10;
+                    showNotification("Player 1 menjawab benar! +10 poin", "success");
+                    playSuccessSound();
+                } else {
+                    player2Score += 10;
+                    flagPosition -= 10;
+                    showNotification("Player 2 menjawab benar! +10 poin", "success");
+                    playSuccessSound();
+                }
+            } else {
+                if (player === 1) {
+                    player1Score -= 5;
+                    flagPosition -= 5;
+                    showNotification("Player 1 menjawab salah! -5 poin", "error");
+                    playErrorSound();
+                } else {
+                    player2Score -= 5;
+                    flagPosition += 5;
+                    showNotification("Player 2 menjawab salah! -5 poin", "error");
+                    playErrorSound();
+                }
+                
+                // Pastikan skor tidak negatif
+                if (player1Score < 0) player1Score = 0;
+                if (player2Score < 0) player2Score = 0;
+            }
+            
+            // Update tampilan skor
+            document.getElementById('player1-score').textContent = player1Score;
+            document.getElementById('player2-score').textContent = player2Score;
+            
+            // Update posisi bendera
+            updateFlagPosition();
+            
+            // Batasi posisi bendera antara 10% dan 90%
+            if (flagPosition < 10) {
+                flagPosition = 10;
+                showNotification("Player 2 Menang!", "success");
+                playSuccessSound();
+            } else if (flagPosition > 90) {
+                flagPosition = 90;
+                showNotification("Player 1 Menang!", "success");
+                playSuccessSound();
+            }
+        }
+        
+        function updateFlagPosition() {
+            document.getElementById('flag').style.left = `${flagPosition}%`;
+        }
+        
+        // Latihan Soal
+        let quizAnswers = [];
+        
+        function resetQuiz() {
+            quizAnswers = [];
+            document.getElementById('score-result').textContent = '';
+            
+            // Reset tampilan opsi
+            const options = document.querySelectorAll('.quiz-option');
+            options.forEach(option => {
+                option.style.backgroundColor = '';
+                option.style.color = '';
+            });
+        }
+        
+        function selectAnswer(optionElement, correctAnswer) {
+            // Mainkan suara tombol
+            playButtonSound();
+            
+            const questionIndex = Array.from(optionElement.parentNode.parentNode.parentNode.children)
+                .indexOf(optionElement.parentNode.parentNode);
+            
+            // Simpan jawaban
+            quizAnswers[questionIndex] = optionElement.textContent.charAt(0);
+            
+            // Reset warna semua opsi di soal ini
+            const options = optionElement.parentNode.querySelectorAll('.quiz-option');
+            options.forEach(opt => {
+                opt.style.backgroundColor = '';
+                opt.style.color = '';
+            });
+            
+            // Tandai opsi yang dipilih
+            optionElement.style.backgroundColor = '#3498db';
+            optionElement.style.color = 'white';
+        }
+        
+        function calculateScore() {
+            // Mainkan suara tombol
+            playButtonSound();
+            
+            const correctAnswers = ['B', 'A', 'C', 'D', 'A'];
+            let score = 0;
+            
+            for (let i = 0; i < correctAnswers.length; i++) {
+                if (quizAnswers[i] === correctAnswers[i]) {
+                    score += 20; // Setiap soal bernilai 20 poin
+                }
+            }
+            
+            const resultElement = document.getElementById('score-result');
+            resultElement.textContent = `Skor Kamu: ${score}/100`;
+            
+            if (score >= 80) {
+                resultElement.innerHTML += `<br>Kamu Hebat! Sudah hafal Rukun Islam dengan baik. 🎉`;
+                resultElement.style.color = '#2ecc71';
+                playSuccessSound();
+            } else if (score >= 60) {
+                resultElement.innerHTML += `<br>Lumayan! Terus belajar ya. 💪`;
+                resultElement.style.color = '#f39c12';
+            } else {
+                resultElement.innerHTML += `<br>Jangan menyerah! Pelajari lagi materinya. 📚`;
+                resultElement.style.color = '#e74c3c';
+                playErrorSound();
+            }
+        }
+        
+        // Inisialisasi
+        window.onload = function() {
+            resetScrambleGame();
+        };
+    </script>
+</body>
+</html>
